@@ -1,26 +1,25 @@
 package com.jomnam.videocourse.entity;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "sub_categories")
+public class SubCategory {
 	@Id
-	@Column(name = "cate_id")
+	@Column(name = "scate_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
@@ -30,7 +29,7 @@ public class Category {
 	private String description;
 	
 	@JsonIgnore
-	@JsonProperty("sub_categories")
-	@OneToMany(mappedBy = "category")
-	private List<SubCategory> subCategories;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cate_id")
+	private Category category;
 }
