@@ -1,5 +1,6 @@
-package com.jomnam.videocourse.entity;
+package com.jomnam.videocourse.api.content;
 
+import com.jomnam.videocourse.api.content_section.ContentSection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

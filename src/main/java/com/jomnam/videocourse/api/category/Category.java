@@ -1,4 +1,4 @@
-package com.jomnam.videocourse.entity;
+package com.jomnam.videocourse.api.category;
 
 import java.util.List;
 

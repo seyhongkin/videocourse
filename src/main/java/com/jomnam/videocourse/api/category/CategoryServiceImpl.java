@@ -1,15 +1,11 @@
-package com.jomnam.videocourse.service.impl;
+package com.jomnam.videocourse.api.category;
 
 import java.util.List;
 
+import com.jomnam.videocourse.api.category.web.CategoryDTO;
 import org.springframework.stereotype.Service;
 
-import com.jomnam.videocourse.dto.CategoryDTO;
-import com.jomnam.videocourse.entity.Category;
-import com.jomnam.videocourse.entity.SubCategory;
 import com.jomnam.videocourse.exception.ResourceNotFoundExceptionHandler;
-import com.jomnam.videocourse.repository.CategoryRepository;
-import com.jomnam.videocourse.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
 

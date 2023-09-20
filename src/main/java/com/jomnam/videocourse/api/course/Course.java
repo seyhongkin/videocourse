@@ -1,10 +1,11 @@
-package com.jomnam.videocourse.entity;
+package com.jomnam.videocourse.api.course;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.jomnam.videocourse.api.content_section.ContentSection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

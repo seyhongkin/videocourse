@@ -1,9 +1,11 @@
-package com.jomnam.videocourse.entity;
+package com.jomnam.videocourse.api.content_section;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.jomnam.videocourse.api.content.Content;
+import com.jomnam.videocourse.api.course.Course;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

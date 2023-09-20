@@ -1,4 +1,4 @@
-package com.jomnam.videocourse.dto;
+package com.jomnam.videocourse.api.category.web;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

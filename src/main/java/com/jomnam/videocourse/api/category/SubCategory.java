@@ -1,7 +1,8 @@
-package com.jomnam.videocourse.entity;
+package com.jomnam.videocourse.api.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.jomnam.videocourse.api.category.Category;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
