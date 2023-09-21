@@ -8,7 +8,7 @@ import org.springframework.hateoas.EntityModel;
 
 
 public interface ContentService {
-    ContentDto createContent(ContentCreateDto contentCreateDto);
+    void createContent(ContentCreateDto contentCreateDto);
     EntityModel<?> findContentById(Long id);
     void updateContentById(Long id, ContentUpdateDto contentUpdateDto);
     CollectionModel<?> findAll();

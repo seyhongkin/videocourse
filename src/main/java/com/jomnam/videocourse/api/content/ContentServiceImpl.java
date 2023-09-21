@@ -18,11 +18,10 @@ public class ContentServiceImpl implements ContentService {
     private final ContentRepository contentRepository;
     private final ContentModelAssembler contentModelAssembler;
     @Override
-    public ContentDto createContent(ContentCreateDto contentCreateDto) {
+    public void createContent(ContentCreateDto contentCreateDto) {
         Content content = ContentMapper.INSTANCE.dtoCreateToEntity(contentCreateDto);
         Content saveContent = contentRepository.save(content);
         ContentDto contentDto = ContentMapper.INSTANCE.entityToDto(saveContent);
-        return contentDto;
     }
 
     @Override
