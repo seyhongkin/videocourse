@@ -20,7 +20,7 @@ public class Content {
 	@Id
 	@Column(name = "con_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Size(min = 5, message = "Title have to be longer than 2 characters")
 	private String title;
@@ -32,7 +32,7 @@ public class Content {
 	private String type;
 
 	@Column(nullable = false)
-	private float duration;
+	private Float duration;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cons_id")
