@@ -1,5 +1,6 @@
 package com.jomnam.videocourse.api.content.web;
 
+import com.jomnam.videocourse.api.content_section.ContentSection;
 import lombok.Builder;
 
 @Builder
@@ -8,6 +9,7 @@ public record ContentCreateDto(
         String title,
         String link,
         String type,
-        Float duration
+        Float duration,
+        ContentSection contentSection
 ) {
 }
