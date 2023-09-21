@@ -4,6 +4,8 @@ import com.jomnam.videocourse.api.content.web.ContentCreateDto;
 import com.jomnam.videocourse.api.content.web.ContentDto;
 import com.jomnam.videocourse.api.content.web.ContentUpdateDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContentServiceImpl implements ContentService {
     private final ContentRepository contentRepository;
-
+    private final ContentModelAssembler contentModelAssembler;
     @Override
     public ContentDto createContent(ContentCreateDto contentCreateDto) {
         Content content = ContentMapper.INSTANCE.dtoCreateToEntity(contentCreateDto);
@@ -24,9 +26,10 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public ContentDto findContentById(Long id) {
+    public EntityModel<?> findContentById(Long id) {
         Content content = contentRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("Not found your Id",id)));
-        ContentDto contentDto = ContentMapper.INSTANCE.entityToDto(content);
+//        ContentDto contentDto = ContentMapper.INSTANCE.entityToDto(content);
+       EntityModel<ContentDto> contentDto = contentModelAssembler.toModel(content);
         return contentDto;
     }
 
@@ -39,10 +42,10 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public List<ContentDto> findAll() {
+    public CollectionModel<?> findAll() {
         List<Content> list = contentRepository.findAll();
-        List<ContentDto> content = ContentMapper.INSTANCE.dtoListToEntity(list);
-        return content;
+
+        return contentModelAssembler.toCollectionModel(list);
     }
 
     @Override

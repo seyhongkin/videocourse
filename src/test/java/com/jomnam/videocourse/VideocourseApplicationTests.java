@@ -11,6 +11,8 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,25 +29,26 @@ class VideocourseApplicationTests {
 
     @Test
     void testContentFindAll() {
-        List<ContentDto> contentDtoList = contentService.findAll();
+        CollectionModel<?> contentDtoList = contentService.findAll();
         assertNotNull(contentDtoList);
-        assertFalse(contentDtoList.isEmpty()); // Ensure the list is not empty
+        assertFalse(contentDtoList.getContent().isEmpty()); // Ensure the list is not empty
 //        assertEquals(3, contentDtoList.size()); // Assuming you expect 3 items in the list
         System.out.println(contentDtoList);
     }
+
     @Test
     void testContentGetById() {
         // Provide a valid ID for an existing content item in your test database
         Long contentId = 1L; // Replace with a valid ID from your data
 
-        ContentDto contentDto = contentService.findContentById(contentId);
+        EntityModel<?> contentDto = contentService.findContentById(contentId);
         assertNotNull(contentDto);
         // Add additional assertions to verify the correctness of the contentDto
         System.out.println(contentDto);
     }
 
     @Test
-    void testContentUpdate(){
+    void testContentUpdate() {
         contentService.updateContentById(1L, ContentUpdateDto.builder().duration(132F).title("Come in the game").link("hai@gmail.com").type("new jeans").build());
     }
 
@@ -71,9 +74,8 @@ class VideocourseApplicationTests {
     }
 
     @Test
-    void testContentDelete(){
+    void testContentDelete() {
         contentService.deleteById(1L);
     }
-
 
 }

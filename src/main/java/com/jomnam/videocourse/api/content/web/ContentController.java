@@ -1,15 +1,14 @@
 package com.jomnam.videocourse.api.content.web;
 
-import com.jomnam.videocourse.api.category.CategoryService;
-import com.jomnam.videocourse.api.content.Content;
+
 import com.jomnam.videocourse.api.content.ContentService;
-import com.jomnam.videocourse.exception.ResourceExceptionHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/contents")
@@ -25,7 +24,7 @@ public class ContentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
-        ContentDto contentDto =contentService.findContentById(id);
+        EntityModel<?> contentDto =contentService.findContentById(id);
         return ResponseEntity.ok(contentDto);
     }
 
@@ -36,7 +35,7 @@ public class ContentController {
     }
     @GetMapping()
     public ResponseEntity<?> findContentAll(){
-        List<ContentDto> list = contentService.findAll();
+        CollectionModel<?> list = contentService.findAll();
         return ResponseEntity.ok(list);
     }
     @DeleteMapping("/{id}")
