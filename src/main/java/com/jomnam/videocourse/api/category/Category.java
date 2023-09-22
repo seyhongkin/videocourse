@@ -21,8 +21,9 @@ import lombok.Data;
 public class Category {
 	@Id
 	@Column(name = "cate_id")
+	@JsonProperty("category_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(unique = true)
 	@Size(min = 2, message = "Title have to be longer than 2 characters")
