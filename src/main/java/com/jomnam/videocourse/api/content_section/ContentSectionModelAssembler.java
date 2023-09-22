@@ -12,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,9 +30,8 @@ public class ContentSectionModelAssembler extends RepresentationModelAssemblerSu
     private ContentSectionMapper contentSectionMapper;
 
 
-    public ContentSectionMapper getContentSectionMapper() {
-        return contentSectionMapper;
-    }
+
+
 
     public ContentSectionModelAssembler() {
         super(ContentSectionController.class, (Class<EntityModel<ContentSectionDto>>) (Class<?>) EntityModel.class);
@@ -45,8 +43,9 @@ public class ContentSectionModelAssembler extends RepresentationModelAssemblerSu
     public EntityModel<ContentSectionDto> toModel(ContentSection entity) {
         ContentSectionDto contentSectionDto = ContentSectionMapper.INSTANCE.entityToDto(entity);
         Link link = linkTo(methodOn(ContentSectionController.class).findAll()).withRel("findAll");
+        Link link1 = linkTo(methodOn(ContentSectionController.class).getById(entity.getId())).withRel(IanaLinkRelations.SELF);
         contentSectionDto.setContent(toContentDto(entity.getContent()));
-        return EntityModel.of(contentSectionDto,link);
+        return EntityModel.of(contentSectionDto,link,link1);
     }
 
     @Override
@@ -55,7 +54,6 @@ public class ContentSectionModelAssembler extends RepresentationModelAssemblerSu
         collectionModel.add(linkTo(methodOn(ContentSectionController.class).findAll()).withSelfRel());
         return collectionModel;
     }
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Content> toContentDto(List<Content> content) {
         if (content.isEmpty())
             return Collections.emptyList();

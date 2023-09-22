@@ -3,7 +3,7 @@ package com.jomnam.videocourse.api.content_section.web;
 import com.jomnam.videocourse.api.content_section.ContentSectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.http.HttpEntity;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +20,15 @@ public class ContentSectionController {
     }
     @GetMapping
     public CollectionModel<?> findAll(){
-        CollectionModel<?> fCollectionModel = contentSectionService.findAll();
-        return fCollectionModel;
+        return contentSectionService.findAll();
     }
     @GetMapping("/{id}")
-    public CollectionModel<?> getById(@PathVariable("id") Long id){
-        return null;
+    public ResponseEntity<EntityModel<?>> getById(@PathVariable("id") Long id){
+        return ResponseEntity.ok().body(contentSectionService.findById(id));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateContentById(@PathVariable("id" )Long id,@RequestBody ContentSectionUpdateDto contentSectionUpdateDto){
+       contentSectionService.updateContentSection(id,contentSectionUpdateDto);
+        return ResponseEntity.ok().build();
     }
 }
