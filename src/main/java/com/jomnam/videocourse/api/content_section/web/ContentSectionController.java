@@ -31,4 +31,9 @@ public class ContentSectionController {
        contentSectionService.updateContentSection(id,contentSectionUpdateDto);
         return ResponseEntity.ok().build();
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteContentById(@PathVariable Long id){
+        contentSectionService.deleteContentSection(id);
+        return ResponseEntity.noContent().build();
+    }
 }

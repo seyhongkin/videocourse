@@ -44,4 +44,10 @@ public class ContentSectionServiceImpl implements ContentSectionService {
         ContentSectionMapper.INSTANCE.createNotLossData(contentSection,contentSectionUpdateDto);
         contentSectionRepository.save(contentSection);
     }
+
+    @Override
+    public void deleteContentSection(Long id) {
+        findById(id);
+        contentSectionRepository.deleteById(id);
+    }
 }

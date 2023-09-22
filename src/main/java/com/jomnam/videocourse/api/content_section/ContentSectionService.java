@@ -11,4 +11,5 @@ public interface ContentSectionService {
     EntityModel<ContentSectionDto> findById(Long id);
     void createContentSection(ContentSectionCreate contentSectionCreate);
     void updateContentSection(Long id,ContentSectionUpdateDto contentSectionUpdateDto);
+    void deleteContentSection(Long id);
 }
