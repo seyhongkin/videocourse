@@ -15,8 +15,8 @@ import java.util.List;
 @Builder
 @Relation(collectionRelation = "Section", itemRelation = "contentsection")
 public class ContentSectionDto {
-    private List<Content> content;
     private Long id;
     private Course course;
     private String title;
+    private List<Content> content;
 }
