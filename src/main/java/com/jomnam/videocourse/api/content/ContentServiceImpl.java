@@ -3,6 +3,7 @@ package com.jomnam.videocourse.api.content;
 import com.jomnam.videocourse.api.content.web.ContentCreateDto;
 import com.jomnam.videocourse.api.content.web.ContentDto;
 import com.jomnam.videocourse.api.content.web.ContentUpdateDto;
+import com.jomnam.videocourse.api.content_section.ContentSectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -17,11 +18,17 @@ import java.util.List;
 public class ContentServiceImpl implements ContentService {
     private final ContentRepository contentRepository;
     private final ContentModelAssembler contentModelAssembler;
+    private final ContentSectionRepository contentSectionRepository;
+
     @Override
     public void createContent(ContentCreateDto contentCreateDto) {
+//        ContentSection contentSection = contentSectionRepository.findById(contentCreateDto.id()).orElseThrow();
         Content content = ContentMapper.INSTANCE.dtoCreateToEntity(contentCreateDto);
-        Content saveContent = contentRepository.save(content);
-        ContentDto contentDto = ContentMapper.INSTANCE.entityToDto(saveContent);
+
+
+//        content.setContentSection(contentSection);
+        contentRepository.save(content);
+// ContentMapper.INSTANCE.entityToDto(saveContent);
     }
 
     @Override
@@ -41,10 +48,10 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public CollectionModel<?> findAll() {
+    public CollectionModel<ContentDto> findAll() {
         List<Content> list = contentRepository.findAll();
-
-        return contentModelAssembler.toCollectionModel(list);
+        CollectionModel collectionModel = contentModelAssembler.toCollectionModel(list);
+        return CollectionModel.of(collectionModel);
     }
 
     @Override

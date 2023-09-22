@@ -11,6 +11,6 @@ public interface ContentService {
     void createContent(ContentCreateDto contentCreateDto);
     EntityModel<?> findContentById(Long id);
     void updateContentById(Long id, ContentUpdateDto contentUpdateDto);
-    CollectionModel<?> findAll();
+    CollectionModel<ContentDto> findAll();
     void deleteById(Long id);
 }

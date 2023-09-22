@@ -28,7 +28,6 @@ public class Category {
 	@Size(min = 2, message = "Title have to be longer than 2 characters")
 	private String title;
 	private String description;
-	
 	@JsonIgnore
 	@JsonProperty("sub_categories")
 	@OneToMany(mappedBy = "category")

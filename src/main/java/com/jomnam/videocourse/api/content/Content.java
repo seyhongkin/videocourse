@@ -1,5 +1,7 @@
 package com.jomnam.videocourse.api.content;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jomnam.videocourse.api.content.web.ContentDto;
 import com.jomnam.videocourse.api.content_section.ContentSection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,12 +13,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import jdk.jshell.Snippet;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "contents")
-public class Content {
+@Builder
+public class Content extends RepresentationModel<Content> {
 	@Id
 	@Column(name = "con_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +41,12 @@ public class Content {
 	@Column(nullable = false)
 	private Float duration;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "cons_id")
 	private ContentSection contentSection;
+
+
+	public Content() {
+
+	}
 }

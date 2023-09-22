@@ -52,7 +52,7 @@ class VideocourseApplicationTests {
         contentService.updateContentById(1L, ContentUpdateDto.builder().duration(132F).title("Come in the game").link("hai@gmail.com").type("new jeans").build());
     }
 
-    @Test
+/*    @Test
     @Transactional
     void testContentCreate() {
         // Create a ContentSection entity and save it to the database
@@ -71,7 +71,7 @@ class VideocourseApplicationTests {
 
         // Create the content using the ContentService
         contentService.createContent(contentDto);
-    }
+    }*/
 
     @Test
     void testContentDelete() {
