@@ -11,4 +11,5 @@ public interface CategoryService {
 	void update(long id, CategoryDTO dto);
 	List<SubCategory> getSubCategories(long id);
 	void remove(long id);
+	List<Category> getByTitle(String title);
 }

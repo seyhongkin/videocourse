@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jomnam.videocourse.api.category.Category;
@@ -45,6 +46,21 @@ public class CategoryController {
 			.collect(Collectors.toList());
 		
 		return ResponseEntity.ok(categoryLinks);
+	}
+	
+	@GetMapping("filter")
+	public ResponseEntity<?> getByName(@RequestParam String title){
+		List<Category> categories = categoryService.getByTitle(title);
+		List<EntityModel<Category>> categoryLinks = categories.stream()
+				.map(c -> EntityModel.of(c, linkTo(methodOn(this.getClass()).getById(c.getId())).withRel("_self")))
+				.collect(Collectors.toList());
+		
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("timestamp", LocalDateTime.now());
+		response.put("count", categories.size());
+		response.put("sub_categories", categoryLinks);
+		return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping("{id}")
@@ -107,11 +123,7 @@ public class CategoryController {
 	
 	@PutMapping("sub/{id}")
 	public ResponseEntity<?> updateSub(@PathVariable long id, @RequestBody SubCategoryDTO dto) {
-		SubCategory subCategory = subCategoryService.getById(id);
-		subCategory.setTitle(dto.getTitle());
-		subCategory.setDescription(dto.getDescription());
-		
-		subCategoryService.update(subCategory);
+		subCategoryService.update(id, dto);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -130,5 +142,21 @@ public class CategoryController {
 	public ResponseEntity<?> deleteSub(@PathVariable long id) {
 		subCategoryService.remove(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("sub")
+	public ResponseEntity<?> getSubByName(@RequestParam String title){
+		List<SubCategory> subCategories = subCategoryService.getByTitle(title);
+		List<EntityModel<SubCategory>> subCategoryLinks = subCategories.stream()
+		.map(sc -> EntityModel
+				.of(sc, linkTo(methodOn(this.getClass()).getSubCategories(sc.getId())).withRel("_section")))
+		.collect(Collectors.toList());
+		
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("timestamp", LocalDateTime.now());
+		response.put("count", subCategories.size());
+		response.put("sub_categories", subCategoryLinks);
+		return ResponseEntity.ok(response);
 	}
 }

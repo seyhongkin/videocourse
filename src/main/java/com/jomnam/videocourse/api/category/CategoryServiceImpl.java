@@ -56,4 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryRepository.delete(category);
 	}
 
+	@Override
+	public List<Category> getByTitle(String title) {
+		return categoryRepository.findByTitleContainingIgnoreCase(title);
+	}
+
 }

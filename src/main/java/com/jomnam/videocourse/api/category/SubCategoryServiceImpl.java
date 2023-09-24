@@ -1,7 +1,10 @@
 package com.jomnam.videocourse.api.category;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.jomnam.videocourse.api.category.web.SubCategoryDTO;
 import com.jomnam.videocourse.exception.ResourceNotFoundExceptionHandler;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +20,14 @@ public class SubCategoryServiceImpl implements SubCategoryService{
 	}
 
 	@Override
-	public void update(SubCategory subCategory) {
+	public void update(Long id, SubCategoryDTO dto) {
+		SubCategory subCategory = getById(id);
+		if(!dto.getTitle().isBlank()) {
+			subCategory.setTitle(dto.getTitle());
+		}
+		if(!dto.getDescription().isBlank()) {
+			subCategory.setDescription(dto.getDescription());
+		}
 		subCategoryRepository.save(subCategory);
 	}
 
@@ -31,6 +41,11 @@ public class SubCategoryServiceImpl implements SubCategoryService{
 	public void remove(Long id) {
 		SubCategory subCategory = getById(id);
 		subCategoryRepository.delete(subCategory);;
+	}
+
+	@Override
+	public List<SubCategory> getByTitle(String title) {
+		return subCategoryRepository.findByTitleContainingIgnoreCase(title);
 	}
 
 }
